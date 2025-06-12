@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Profile</title>
+  <link rel="stylesheet" href="{% static 'css/update.css' %}">
+</head>
+<body>
+<header>
+    <div class="welcome">Welcome, {{ user.email }}</div>
+    <div class="nav-buttons">
+        <a href="{% url 'profile' %}" class="btn">Profile</a>
+    
+        <a href="{% url 'signout' %}" class="btn signout" style="border: red; color: white; background-color: red;">Signout</a>
+    </div>
+</header>
+<br/>
+<br/>
+
+<div class="container">
+
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <h1>Update Your Profile</h1>
+
+  <form method="POST" novalidate>
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="id_full_name">Full Name</label>
+      {{ form.fullname }}
+      {% if form.full_name.errors %}
+        <div class="error">{{ form.full_name.errors.0 }}</div>
+      {% endif %}
+    </div>
+
+    <button type="submit" class="btn">Update</button>
+  </form>
+
+</div>
+
+<script>
+  // Auto-hide Django messages after 5 seconds
+  document.addEventListener("DOMContentLoaded", () => {
+    const messages = document.querySelectorAll('.message');
+    if (messages.length) {
+      setTimeout(() => {
+        messages.forEach(msg => {
+          msg.style.transition = 'opacity 1s ease';
+          msg.style.opacity = '0';
+          setTimeout(() => msg.remove(), 1000);
+        });
+      }, 5000);
+    }
+  });
+</script>
+
+</body>
+</html>

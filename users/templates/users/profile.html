@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+</head>
+<body>
+
+<header>
+    <div class="welcome">Welcome, {{ user.email }}</div>
+    <div class="nav-buttons">
+        <a href="{% url 'home' %}" class="btn">Home</a>
+    
+        <a href="{% url 'signout' %}" class="btn signout" style="border: red; color: white; background-color: red;">Signout</a>
+    </div>
+</header>
+{% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+<main class="container">
+    <!-- Profile Details Box -->
+    <section class="profile-box">
+        <h2>Profile Details</h2>
+        <!-- <div class="profile-picture">
+            {% if user.profile.picture %}
+                <img src="{{ user.profile.picture.url }}" alt="Profile Picture">
+            {% else %}
+                <p>No profile picture.</p>
+            {% endif %}
+        </div> -->
+        <div class="profile-detail">
+            <strong>Email:</strong> {{ user.email }}
+        </div>
+        <div class="profile-detail">
+            <strong>Full Name:</strong> {{ profile.fullname }}
+        </div>
+        <div class="actions">
+            <a href="{% url 'change_email' %}" class="btn small">Change Email</a>
+            <a href="{% url 'update_profile' %}" class="btn small">Update Profile</a>
+            <a href="{% url 'change_password' %}" class="btn small">Change Password</a>   
+        </div>
+    </section>
+
+   <!-- File List Box -->
+    <section class="files-box">
+        <h2>Your Files</h2>
+        {% if files %}
+            <ul class="file-list">
+                {% for file in files %}
+                    <li>
+                        <a href="{% url 'file_detail' file.id %}" class="file-name">
+                            {{ file.filename }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You haven’t uploaded any files yet.</p>
+        {% endif %}
+
+        <div class="actions">
+            <a href="{% url 'upload_file' %}" class="btn small"> Upload File</a>
+        </div>
+    </section>
+
+
+</main>
+
+<script>
+    function copyToClipboard(button) {
+        const input = button.previousElementSibling;
+        input.select();
+        document.execCommand("copy");
+        button.textContent = "✅";
+        setTimeout(() => button.textContent = "📋", 2000);
+    }
+
+  // Auto-hide Django messages after 5 seconds
+  document.addEventListener("DOMContentLoaded", () => {
+    const messages = document.querySelectorAll('.message');
+    if (messages.length) {
+      setTimeout(() => {
+        messages.forEach(msg => {
+          msg.style.transition = 'opacity 1s ease';
+          msg.style.opacity = '0';
+          setTimeout(() => msg.remove(), 1000);
+        });
+      }, 5000);
+    }
+  });
+</script>
+
+</body>
+</html>

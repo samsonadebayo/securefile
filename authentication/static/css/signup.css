@@ -1,0 +1,165 @@
+/* Base Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Colors */
+:root {
+    --green: #66ccff;
+    --green-dark: #3399cc;
+    --black: #000000;
+    --error-red: #ff4d4d;
+}
+
+/* Body Styling */
+body {
+    background: linear-gradient(270deg, #1e2a78, #4b3c8c, #1e2a78);
+    background-size: 600% 600%;
+    animation: backgroundShift 20s ease infinite;
+    color: var(--green);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Background Animation */
+@keyframes backgroundShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Container */
+.container {
+    background-color: rgba(0, 0, 0, 0.65);
+    padding: 30px 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 40px #66ccff66;
+    width: 100%;
+    max-width: 420px;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: var(--green);
+    text-shadow: 0 0 5px #66ccffaa;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--green);
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 2px solid var(--green);
+    border-radius: 5px;
+    color: var(--green);
+    font-size: 15px;
+    transition: border 0.3s, box-shadow 0.3s;
+    box-shadow: inset 0 0 8px #66ccff66;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--green-dark);
+    box-shadow: 0 0 10px #3399ccaa;
+}
+
+/* Error Messages */
+.error {
+    color: var(--error-red);
+    font-size: 0.9em;
+    margin-top: 6px;
+}
+
+/* Submit Button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--green);
+    color: black;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s;
+    box-shadow: 0 4px 20px #66ccffcc;
+}
+
+.btn:hover {
+    background-color: var(--green-dark);
+    box-shadow: 0 0 30px #3399ccdd;
+}
+
+/* Django Messages */
+.messages {
+    margin-bottom: 20px;
+}
+
+.message {
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 0.95em;
+}
+
+/* Do NOT change these colors */
+.message.success {
+    background-color: #00804d;
+    color: white;
+    border-left: 6px solid #00ff99;
+}
+
+.message.error {
+    background-color: #ffcccc;
+    color: #330000;
+    border-left: 6px solid red;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        margin: 0 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .btn {
+        font-size: 15px;
+    }
+}
