@@ -87,6 +87,27 @@ def file_detail(request, file_id):
     return render(request, 'users/file.html', {'file': file})
 
 
+@login_required(login_url='signin')
+def file_update(request, file_id):
+    file = get_object_or_404(File, pk=file_id)
+    
+    if request.method == 'POST':
+        form = FileForm(request.POST, request.FILES, instance=file)
+        if form.is_valid():
+            form.save()
+            return redirect('file_detail', file_id=file.id)
+    else:
+        form = FileForm(instance=file)
+    
+    return render(request, 'users/file_update.html', {'form': form, 'file': file})
+
+
+@login_required(login_url='signin')
+def file_delete(request, file_id):
+    file = get_object_or_404(File, pk=file_id)
+    file.delete()
+    return redirect('profile')  # Redirect to a list or homepage
+
 # get file by token 
 def get_file_view(request, pk):
 	file = File.objects.filter(pk=pk).first()

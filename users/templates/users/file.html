@@ -41,6 +41,8 @@
         {% if file.expired %}
             <p class="expired-warning">⚠️ This file has expired or will expire soon.</p>
         {% endif %}
+    <br/><br/>
+        <span><a href="{% url 'file_delete' file.id %}" style="text-decoration: none; color: black; padding:4px; background-color:red; border-radius: 4px; margin: 8px;"> Delete file</a></span><span><a href="{% url 'file_update' file.id %}" style="text-decoration: none; color: green; padding:4px; background-color:white; border-radius: 4px; margin: 8px;"> Update file</a></span>
     </div>
 
 </div>
